@@ -1,18 +1,22 @@
-import SmallCard from '../components/SmallCard';
-import { projectIcons } from '../components/Icons';
+import {useSession} from 'next-auth/react'
+import Layout from '../components/Layout'
+import HomePage from '../components/HomePage'
+import {useRouter} from 'next/router'
 
-import { projects } from '../utils/projectsData';
 
-const Home = () => (
-  <div className="home">
-    <h1>What Can I Deploy to Static Apps?</h1>
-    <div className="card-grid">
-      {projects.map((project) => {
-        const Icon = projectIcons[project.id];
-        return <SmallCard key={project.id} Icon={Icon} title={project.name} slug={project.slug} />;
-      })}
-    </div>
-  </div>
-);
+export default function Home() {
 
-export default Home;
+  const { data: session } = useSession();
+  const router = useRouter();
+  if (session && session.user) {
+    router.push('/products')
+  }
+  return (
+    <Layout>
+      <HomePage/>
+    </Layout>
+  )
+}
+
+
+

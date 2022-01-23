@@ -1,0 +1,38 @@
+### GET Products API
+GET http://localhost:3000/api/products
+
+### GET Products API
+GET http://localhost:3000/api/products/61ba39ebb6beb333969a3f51
+
+### GET Products API
+POST http://localhost:3000/api/products/
+Content-Type: application/json
+
+{
+    "product": {
+        "title":"Apache Software Foundation Apache log4net 1.2.9",
+        "cpe23Uri": "cpe:2.3:a:apache:log4net:1.2.9_beta:*:*:*:*:*:*:*",
+        "vulnerabilities": []
+    }
+}
+
+### GET Products API
+GET https://services.nvd.nist.gov/rest/json/cpes/1.0/?keyword=log4&addOns=cves
+
+### GET Products API
+GET https://services.nvd.nist.gov/rest/json/cves/1.0/?cpeMatchString=cpe:2.3:a:apache:log4net:1.2.9_beta:*:*:*:*:*:*:*
+
+### Send Email API
+POST http://localhost:3000/api/email
+
+### Send Email API
+GET http://localhost:3000/api/email/templates
+
+### Send Email API
+POST  http://localhost:3000/api/email/templates/send
+Content-Type: application/json
+
+{
+    "productId" : "61ba39ebb6beb333969a3f5c", 
+    "emailId" : "arun@gmail.com"
+}

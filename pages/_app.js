@@ -1,11 +1,28 @@
-import '../styles/reset.css';
-import '../styles/main.css';
+import { useState } from 'react'
+import { SessionProvider } from "next-auth/react"
+import '../styles/globals.css'
+import Router from "next/router"
+import Loader from '../components/Loader'
+import PrivateLayout from '../components/PrivateLayout'
 
-// This default export is required in a new `pages/_app.js` file.
-export default function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  const [loading, setLoading] = useState(false)
+  Router.events.on('routeChangeStart', url => {
+    setLoading(true)
+  })
+  Router.events.on('routeChangeComplete', url => {
+    setLoading(false);
+  })
+  Router.events.on('routeChangeError', url => {
+    setLoading(false);
+  })
   return (
-    <div>
-      <Component {...pageProps} />
-    </div>
-  );
+    <>
+    {loading ? <Loader Wrapper={PrivateLayout}/> :  <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>}
+    </>
+  )
 }
+
+export default MyApp
